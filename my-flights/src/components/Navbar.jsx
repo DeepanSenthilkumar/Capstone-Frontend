@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react"; // Correct Auth0 import
 
-import "../styles/NavBar.css";
+import "../styles/Navbar.css";
 import "../index.css";
 
 export default function NavBar() {
