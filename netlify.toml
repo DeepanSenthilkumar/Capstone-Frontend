@@ -1,4 +1,4 @@
 [build]
-  base = "my-flight"
+  base = "my-flights"
   command = "npm run build"
   publish = "my-flights/dist"
