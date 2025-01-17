@@ -56,11 +56,12 @@ function BookingContainer() {
   //   console.log(flight)
   // };
 
-  const handleBooking = () => {
+  const navigateToPayment = (flight) => {
     if (isAuthenticated) {
-        navigateToPayment(flight);  
+        navigate('/payandbook', { state: { flight } });
+        console.log(flight);
     } else {
-        loginWithRedirect();  
+        loginWithRedirect(); // Redirect to login if user is not authenticated
     }
 };
 
@@ -215,8 +216,8 @@ function BookingContainer() {
                   Price: {flight.price} {flight.price.currency}
                 </div>
                 <button
-                  // onClick={() => navigateToPayment(flight)}
-                  onClick={handleBooking}
+                  onClick={() => navigateToPayment(flight)}
+                  // onClick={handleBooking}
                   className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
                 >
                   Book
