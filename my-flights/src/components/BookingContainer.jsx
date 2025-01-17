@@ -58,9 +58,9 @@ function BookingContainer() {
 
   const handleBooking = () => {
     if (isAuthenticated) {
-        navigateToPayment(flight);  // ✅ Only use logic inside the handler
+        navigateToPayment(flight);  
     } else {
-        loginWithRedirect();  // ✅ Redirect to Auth0 login page if not authenticated
+        loginWithRedirect();  
     }
 };
 
