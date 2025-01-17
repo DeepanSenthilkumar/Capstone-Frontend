@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import Loader from './loader';
 import { useNavigate } from 'react-router-dom';
 import { fetchFlights } from '../services/flightService';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function BookingContainer() {
   const [selectedTab, setSelectedTab] = useState('economy'); // Default to Economy Class
@@ -15,6 +16,7 @@ function BookingContainer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [flightsPerPage] = useState(10);
   const navigate = useNavigate();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   // Handle tab click for class selection
   const handleTabClick = (tab) => {
@@ -49,10 +51,18 @@ function BookingContainer() {
   const currentFlights = flights.slice(indexOfFirstFlight, indexOfLastFlight);
 
   // Navigate to payment
-  const navigateToPayment = (flight) => {
-    navigate('/payandbook', { state: { flight: flight } });
-    console.log(flight)
-  };
+  // const navigateToPayment = (flight) => {
+  //   navigate('/payandbook', { state: { flight: flight } });
+  //   console.log(flight)
+  // };
+
+  const handleBooking = () => {
+    if (isAuthenticated) {
+        navigateToPayment(flight);  // ✅ Only use logic inside the handler
+    } else {
+        loginWithRedirect();  // ✅ Redirect to Auth0 login page if not authenticated
+    }
+};
 
   // Pagination function
   const paginate = (pageNumber) => {
@@ -205,7 +215,8 @@ function BookingContainer() {
                   Price: {flight.price} {flight.price.currency}
                 </div>
                 <button
-                  onClick={() => navigateToPayment(flight)}
+                  // onClick={() => navigateToPayment(flight)}
+                  onClick={handleBooking}
                   className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
                 >
                   Book
