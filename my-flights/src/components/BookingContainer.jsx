@@ -58,7 +58,10 @@ function BookingContainer() {
 
   const handleBooking = () => {
     if (isAuthenticated) {
-        navigateToPayment(flight);  
+        navigateToPayment = (flight) => {
+          navigate('/payandbook', { state: { flight: flight } });
+          console.log(flight)
+        };  
     } else {
         loginWithRedirect();  
     }
